@@ -1,0 +1,33 @@
+{
+  "name": "@teamthunderfoot/tabs",
+  "version": "0.0.2",
+  "description": "Tabs package",
+  "main": "",
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-thunderfoot/tabs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-thunderfoot/tabs/issues"
+  },
+  "homepage": "https://github.com/team-thunderfoot/tabs#readme",
+  "devDependencies": {
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "@andresclua/debounce-throttle": "^0.0.82",
+    "@andresclua/jsutil": "^2.0.4",
+    "@babel/core": "^7.14.3"
+  },
+  "keywords": [
+    "tabs"
+  ]
+}
