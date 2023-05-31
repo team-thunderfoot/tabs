@@ -13,7 +13,7 @@ npm install @teamthunderfoot/tabs
 ## Usage
 
 ```sh
-import Tabs from "./Tabs";
+import Tabs from "@teamthunderfoot/tabs";
 import { breakpoints } from "@teamthunderfoot/breakpoints";
 
 class Page {
