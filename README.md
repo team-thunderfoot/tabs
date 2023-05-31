@@ -179,8 +179,9 @@ You can customize the CSS classes and data attributes used by the tabs package t
 
 ## Destroy
 
-To remove the back-to-top functionality, you can use the destroy method. Call the destroy method on the instance of BackToTop:
+Destroys the `Tabs` instance by removing event listeners and resetting the state. This method should be called when you want to completely remove the tab functionality from the page.
 
 ```sh
-const destroy = this.tabs.destroy();
+const tabs = new Tabs(options);
+tabs.destroy();
 ```
