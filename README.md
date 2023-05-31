@@ -58,7 +58,6 @@ class Page {
   }
 
   events() {
-    // Otros eventos de la página...
   }
 
   destroyTabs() {
