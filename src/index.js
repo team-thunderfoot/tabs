@@ -1,13 +1,23 @@
 import Tabs from "./Tabs";
+import { breakpoints } from "@teamthunderfoot/breakpoints";
 
 class Page {
   constructor() {
+    this.tabsA = null;
+    this.tabsB = null;
+
     this.init();
     this.events();
   }
+
   init() {
+    const bk = breakpoints.reduce(
+      (target, inner) => Object.assign(target, inner),
+      {}
+    );
+
     document.querySelectorAll(".js--tabs-a").forEach((el) => {
-      new Tabs({
+      this.tabsA = new Tabs({
         tabContainer: "tf-ds-container",
         tabActive: "tf-ds-tab-a-active",
         tabActiveClass: "b--tabs-a__bd__item--is-active",
@@ -17,6 +27,7 @@ class Page {
         tabBody: "tf-ds-tab-body-a",
         externalTrigger: "tf-ds-tab-external-open-a",
         selectClass: "js--select-item-a",
+        mediaQuerySelect: bk.tablets, // 810
         onChange: () => {
           // do something
         },
@@ -24,7 +35,7 @@ class Page {
     });
 
     document.querySelectorAll(".js--tabs-b").forEach((el) => {
-      new Tabs({
+      this.tabsB = new Tabs({
         tabContainer: "tf-ds-container",
         tabActive: "tf-ds-tab-b-active",
         tabActiveClass: "b--tabs-b__bd__item--is-active",
@@ -34,13 +45,38 @@ class Page {
         tabBody: "tf-ds-tab-body-b",
         externalTrigger: "tf-ds-tab-external-open-b",
         selectClass: "js--select-item-b",
+        mediaQuerySelect: bk.tabletm,
         onChange: () => {
           // do something
         },
       });
     });
+
+    document
+      .querySelector(".js--tabs-destroy")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        this.destroyTabs();
+      });
   }
-  events() {}
+
+  events() {
+    // Otros eventos de la página...
+  }
+
+  destroyTabs() {
+    if (this.tabsA) {
+      this.tabsA.destroy();
+      this.tabsA = null;
+    }
+
+    if (this.tabsB) {
+      this.tabsB.destroy();
+      this.tabsB = null;
+    }
+  }
 }
+
 export default Page;
+
 new Page();

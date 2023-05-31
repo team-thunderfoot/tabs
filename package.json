@@ -25,7 +25,8 @@
   "dependencies": {
     "@andresclua/debounce-throttle": "^0.0.82",
     "@andresclua/jsutil": "^2.0.4",
-    "@babel/core": "^7.14.3"
+    "@babel/core": "^7.14.3",
+    "@teamthunderfoot/breakpoints": "^0.0.6"
   },
   "keywords": [
     "tabs"

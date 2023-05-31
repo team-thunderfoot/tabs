@@ -1,4 +1,5 @@
 import JSUTIL from "@andresclua/jsutil";
+import { tf_debounce } from "@andresclua/debounce-throttle";
 
 class Tabs {
   constructor(payload) {
@@ -11,15 +12,18 @@ class Tabs {
     this.tabBody = payload.tabBody;
     this.externalTrigger = payload.externalTrigger;
     this.selectClass = payload.selectClass;
+    this.mediaQuerySelect = payload.mediaQuerySelect;
     this.onChange = payload.onChange;
 
     this.JSUTIL = new JSUTIL();
     this.init();
     this.events();
+    this.selectEvent = null;
+    this.clickEvent = null;
   }
 
   init() {
-    this.setDefaultActiveTab();
+    this.selectEvent = this.setDefaultActiveTab();
   }
 
   events() {
@@ -53,7 +57,15 @@ class Tabs {
     });
 
     if (this.onChange) this.onChange();
-    this.selectOnMobile();
+
+    window.addEventListener(
+      "resize",
+      tf_debounce((e) => {
+        if (window.innerWidth < this.mediaQuerySelect) {
+          this.selectOnMobile();
+        }
+      }, 100)
+    );
   };
 
   // Sets the default active tab
@@ -128,9 +140,39 @@ class Tabs {
     select.value = value;
   }
 
-  // Clears the click event
+  // Clears the click event and removes all added classes
   destroy() {
-    this.clickEvent = {};
+    const triggers = document.querySelectorAll(`[${this.tabTrigger}]`);
+    triggers.forEach((trigger) => {
+      const tabID = trigger.getAttribute(this.tabTrigger);
+      const containerID = trigger.getAttribute(this.tabContainer);
+
+      trigger.removeEventListener("click", this.clickEvent);
+
+      const tabBody = document.getElementById(tabID);
+      const parent = document.querySelector(`[${this.tabParent}='${tabID}']`);
+
+      if (tabBody && parent) {
+        const jsUtil = new JSUTIL();
+        jsUtil.removeClass(tabBody, this.tabActiveClass);
+        jsUtil.removeClass(parent, this.tabBodyActiveClass);
+      }
+    });
+
+    const externalTriggers = document.querySelectorAll(
+      `[${this.externalTrigger}]`
+    );
+    externalTriggers.forEach((externalTrigger) => {
+      externalTrigger.removeEventListener("click", this.clickEvent);
+    });
+
+    const selectItems = document.querySelectorAll(`.${this.selectClass}`);
+    selectItems.forEach((select) => {
+      select.removeEventListener("change", this.selectEvent);
+    });
+
+    this.clickEvent = null;
+    this.selectEvent = null;
   }
 }
 export default Tabs;

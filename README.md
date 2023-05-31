@@ -13,15 +13,26 @@ npm install @teamthunderfoot/tabs
 ## Usage
 
 ```sh
-import Tabs from '@teamthunderfoot/tabs';
+import Tabs from "./Tabs";
+import { breakpoints } from "@teamthunderfoot/breakpoints";
 
-class Index {
+class Page {
   constructor() {
+    this.tabsA = null;
+    this.tabsB = null;
+
     this.init();
+    this.events();
   }
+
   init() {
+    const bk = breakpoints.reduce(
+      (target, inner) => Object.assign(target, inner),
+      {}
+    );
+
     document.querySelectorAll(".js--tabs-a").forEach((el) => {
-      new Tabs({
+      this.tabsA = new Tabs({
         tabContainer: "tf-ds-container",
         tabActive: "tf-ds-tab-a-active",
         tabActiveClass: "b--tabs-a__bd__item--is-active",
@@ -31,29 +42,70 @@ class Index {
         tabBody: "tf-ds-tab-body-a",
         externalTrigger: "tf-ds-tab-external-open-a",
         selectClass: "js--select-item-a",
+        mediaQuerySelect: bk.tablets, // 810
         onChange: () => {
           // do something
         },
       });
     });
+
+    document
+      .querySelector(".js--tabs-destroy")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        this.destroyTabs();
+      });
+  }
+
+  events() {
+    // Otros eventos de la página...
+  }
+
+  destroyTabs() {
+    if (this.tabsA) {
+      this.tabsA.destroy();
+      this.tabsA = null;
+    }
+
+    if (this.tabsB) {
+      this.tabsB.destroy();
+      this.tabsB = null;
+    }
   }
 }
 
-export default Index;
-new Index();
+export default Page;
+
+new Page();
+
 ```
 
 In your HTML file, add the necessary elements for the tabs. Each tab group should have a unique identifier (e.g., `tab-a-1` or `tab-a-2`). Use the provided CSS classes and data attributes to specify the tab triggers, tab bodies, and select elements.
 
 - **Container:** The tab container element should have an ID attribute. Example: `id="tab-a-1"`.
 
-- **Triggers:** The tab triggers should have the following attributes: - An attribute with a value equal to the ID of the tab body it should open. Example: `tf-ds-tab-to-open-a="tab-a-1-1"`. - An attribute that specifies which container it belongs to. Example: `tf-ds-container="tab-a-1"`. - If it's a tab and not a link, it should have an attribute that identifies it as a tab (not a link) with a value equal to the ID of the body it should open. Example: `tf-ds-tab-parent="tab-a-1-1"`.
+- **Triggers:** The tab triggers should have the following attributes:
 
-- **Bodies:** The tab body should have: \* An ID attribute. Example: `id="tab-a-1-1"`. - An attribute with a value equal to the same ID as the body. Example: `tf-ds-tab-body-a="tab-a-1-1"`. - For each container, only one body should have an attribute specifying that it should be open by default. Example: `tf-ds-tab-a-active="true"`.
+  - An attribute with a value equal to the ID of the tab body it should open. Example: `tf-ds-tab-to-open-a="tab-a-1-1"`.
+  - An attribute that specifies which container it belongs to. Example: `tf-ds-container="tab-a-1"`.
+  - If it's a tab and not a link, it should have an attribute that identifies it as a tab (not a link) with a value equal to the ID of the body it should open. Example: `tf-ds-tab-parent="tab-a-1-1"`.
 
-- **External Links:** The external links should have: - An attribute with a value equal to the ID of the body it should open. Example: `tf-ds-tab-external-open-a="tab-a-1-1"`. - An attribute specifying the ID of the container that contains the body it is opening. Example: `tf-ds-container="tab-a-1"`.
+- **Bodies:** The tab body should have:
 
-- **Selects:** The select element should have: - An ID attribute. Example: `id="select-01"`. - A class to identify it. Example: `class="js--select-item-a"`. - An attribute with a value equal to the ID of the container it belongs to. Example: `tf-ds-container="tab-a-1"`. - The value of the options should be the ID of the body it should open. Example: `<option value="tab-a-1-1">...</option>`.
+  - An ID attribute. Example: `id="tab-a-1-1"`.
+  - An attribute with a value equal to the same ID as the body. Example: `tf-ds-tab-body-a="tab-a-1-1"`.
+  - For each container, only one body should have an attribute specifying that it should be open by default. Example: `tf-ds-tab-a-active="true"`.
+
+- **External Links:** The external links should have:
+
+  - An attribute with a value equal to the ID of the body it should open. Example: `tf-ds-tab-external-open-a="tab-a-1-1"`.
+  - An attribute specifying the ID of the container that contains the body it is opening. Example: `tf-ds-container="tab-a-1"`.
+
+- **Selects:** The select element should have:
+  - An ID attribute. Example: `id="select-01"`.
+  - A class to identify it. Example: `class="js--select-item-a"`.
+  - An attribute with a value equal to the ID of the container it belongs to. Example: `tf-ds-container="tab-a-1"`.
+  - The value of the options should be the ID of the body it should open. Example: `<option value="tab-a-1-1">...</option>`.
 
 ```sh
 <div class="b--tabs-a js--tabs-a" id="tab-a-1">
@@ -122,6 +174,8 @@ You can customize the CSS classes and data attributes used by the tabs package t
 • `selectClass:` Specifies the CSS class for a select item.
 
 • `onChange():` Specifies a callback function to be executed when the tab changes.
+
+• `mediaQuerySelect:` Specifies the breakpoint at which to activate mobile selection behavior. When the window width is less than the specified value, the tabs are replaced with a select element for better mobile user experience
 
 ## Destroy
 
