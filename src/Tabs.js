@@ -10,6 +10,7 @@ class Tabs {
     this.tabParent = payload.tabParent;
     this.tabBody = payload.tabBody;
     this.externalTrigger = payload.externalTrigger;
+    this.selectClass = payload.selectClass;
     this.onChange = payload.onChange;
 
     this.JSUTIL = new JSUTIL();
@@ -26,24 +27,13 @@ class Tabs {
   }
 
   toggleTabs = () => {
-    const handleClick = (item, tabID, containerID) => {
-      item.preventDefault();
-      // Hides all active classes
-      this.hideTab(containerID);
-      const tabBody = document.getElementById(tabID);
-      const parent = document.querySelector(`[${this.tabParent}='${tabID}']`);
-      if (tabBody && parent) {
-        this.JSUTIL.addClass(tabBody, this.tabActiveClass);
-        this.JSUTIL.addClass(parent, this.tabBodyActiveClass);
-      }
-    };
-
     const triggers = document.querySelectorAll(`[${this.tabTrigger}]`);
     triggers.forEach((trigger) => {
       const tabID = trigger.getAttribute(this.tabTrigger);
       const containerID = trigger.getAttribute(this.tabContainer);
+
       trigger.addEventListener("click", (item) => {
-        handleClick(item, tabID, containerID);
+        this.handleClick(item, tabID, containerID);
       });
     });
 
@@ -53,12 +43,14 @@ class Tabs {
     externalTriggers.forEach((externalTrigger) => {
       const tabID = externalTrigger.getAttribute(this.externalTrigger);
       const containerID = externalTrigger.getAttribute(this.tabContainer);
+
       externalTrigger.addEventListener("click", (item) => {
-        handleClick(item, tabID, containerID);
+        this.handleClick(item, tabID, containerID);
       });
     });
 
     if (this.onChange) this.onChange();
+    this.selectOnMobile();
   };
 
   // Shows tab with tabActive
@@ -73,6 +65,21 @@ class Tabs {
     });
   }
 
+  handleClick(item, tabID, containerID) {
+    item.preventDefault();
+    // Hides all active classes
+    this.hideTab(containerID);
+    this.chageSelectValue(containerID, tabID);
+
+    const tabBody = document.getElementById(tabID);
+    const parent = document.querySelector(`[${this.tabParent}='${tabID}']`);
+
+    if (tabBody && parent) {
+      this.JSUTIL.addClass(tabBody, this.tabActiveClass);
+      this.JSUTIL.addClass(parent, this.tabBodyActiveClass);
+    }
+  }
+
   // Hides all active clases
   hideTab(containerID) {
     const container = document.getElementById(containerID);
@@ -84,6 +91,32 @@ class Tabs {
     container.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
       this.JSUTIL.removeClass(el, this.tabBodyActiveClass);
     });
+  }
+
+  // changes tabs on mobile
+  selectOnMobile() {
+    const selectItems = document.querySelectorAll(`.${this.selectClass}`);
+
+    if (selectItems) {
+      selectItems.forEach((select) => {
+        select.addEventListener("change", (e) => {
+          e.preventDefault();
+          const tabBody = document.querySelector(
+            `[${this.tabBody}='${select.value}']`
+          );
+          const containerID = select.getAttribute(this.tabContainer);
+
+          this.hideTab(containerID);
+          this.JSUTIL.addClass(tabBody, this.tabActiveClass);
+        });
+      });
+    }
+  }
+
+  chageSelectValue(containerID, value) {
+    const container = document.getElementById(containerID);
+    const select = container.querySelector("select");
+    select.value = value;
   }
 
   destroy() {

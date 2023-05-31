@@ -16,6 +16,7 @@ class Page {
         tabParent: "tf-ds-tab-parent",
         tabBody: "tf-ds-tab-body-a",
         externalTrigger: "tf-ds-tab-external-open-a",
+        selectClass: "js--select-item-a",
         onChange: () => {
           // do something
         },
@@ -32,6 +33,7 @@ class Page {
         tabParent: "tf-ds-tab-parent",
         tabBody: "tf-ds-tab-body-b",
         externalTrigger: "tf-ds-tab-external-open-b",
+        selectClass: "js--select-item-b",
         onChange: () => {
           // do something
         },
