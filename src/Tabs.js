@@ -3,9 +3,9 @@ import JSUTIL from "@andresclua/jsutil";
 class Tabs {
   constructor(payload) {
     this.tabContainer = payload.tabContainer;
-    this.tabActive = payload.tabActive; //tab active by default
-    this.tabActiveClass = payload.tabActiveClass; //active class on header
-    this.tabBodyActiveClass = payload.tabBodyActiveClass; //active class on body
+    this.tabActive = payload.tabActive;
+    this.tabActiveClass = payload.tabActiveClass;
+    this.tabBodyActiveClass = payload.tabBodyActiveClass;
     this.tabTrigger = payload.tabTrigger;
     this.tabParent = payload.tabParent;
     this.tabBody = payload.tabBody;
@@ -26,7 +26,9 @@ class Tabs {
     this.clickEvent = this.toggleTabs();
   }
 
+  // Sets up click event for tab toggling
   toggleTabs = () => {
+    // Toggles the tabs when clicked
     const triggers = document.querySelectorAll(`[${this.tabTrigger}]`);
     triggers.forEach((trigger) => {
       const tabID = trigger.getAttribute(this.tabTrigger);
@@ -37,6 +39,7 @@ class Tabs {
       });
     });
 
+    // Toggles the tabs when external triggers are clicked
     const externalTriggers = document.querySelectorAll(
       `[${this.externalTrigger}]`
     );
@@ -53,8 +56,9 @@ class Tabs {
     this.selectOnMobile();
   };
 
-  // Shows tab with tabActive
+  // Sets the default active tab
   setDefaultActiveTab() {
+    // Shows tab with tabActive class
     const bodies = document.querySelectorAll(`[${this.tabActive}]`);
     bodies.forEach((body) => {
       this.JSUTIL.addClass(body, this.tabActiveClass);
@@ -93,7 +97,7 @@ class Tabs {
     });
   }
 
-  // changes tabs on mobile
+  // Changes tabs on mobile when select option is changed
   selectOnMobile() {
     const selectItems = document.querySelectorAll(`.${this.selectClass}`);
 
@@ -104,21 +108,27 @@ class Tabs {
           const tabBody = document.querySelector(
             `[${this.tabBody}='${select.value}']`
           );
+          const parent = document.querySelector(
+            `[${this.tabParent}='${select.value}']`
+          );
           const containerID = select.getAttribute(this.tabContainer);
 
           this.hideTab(containerID);
           this.JSUTIL.addClass(tabBody, this.tabActiveClass);
+          this.JSUTIL.addClass(parent, this.tabBodyActiveClass);
         });
       });
     }
   }
 
+  // Changes the value of the select element
   chageSelectValue(containerID, value) {
     const container = document.getElementById(containerID);
     const select = container.querySelector("select");
     select.value = value;
   }
 
+  // Clears the click event
   destroy() {
     this.clickEvent = {};
   }
