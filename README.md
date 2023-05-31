@@ -146,6 +146,8 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
         </div>
     </div>
 </div>
+
+<p>Open Item 2 on tab 1 by clicking <a href="#" tf-ds-tab-external-open-b="tab-a-1-2" tf-ds-container="tab-a-1">here</a></p>
 ```
 
 ## Customization
