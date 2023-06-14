@@ -81,30 +81,30 @@ new Page();
 
 In your HTML file, add the necessary elements for the tabs. Each tab group should have a unique identifier (e.g., `tab-a-1` or `tab-a-2`). Use the provided CSS classes and data attributes to specify the tab triggers, tab bodies, and select elements.
 
-- **Container:** The tab container element should have an ID attribute. Example: `id="tab-a-1"`.
+-   **Container:** The tab container element should have an ID attribute. Example: `id="tab-a-1"`.
 
-- **Triggers:** The tab triggers should have the following attributes:
+-   **Triggers:** The tab triggers should have the following attributes:
 
-  - An attribute with a value equal to the ID of the tab body it should open. Example: `tf-ds-tab-to-open-a="tab-a-1-1"`.
-  - An attribute that specifies which container it belongs to. Example: `tf-ds-container="tab-a-1"`.
-  - If it's a tab and not a link, it should have an attribute that identifies it as a tab (not a link) with a value equal to the ID of the body it should open. Example: `tf-ds-tab-parent="tab-a-1-1"`.
+    -   An attribute with a value equal to the ID of the tab body it should open. Example: `tf-ds-tab-to-open-a="tab-a-1-1"`.
+    -   An attribute that specifies which container it belongs to. Example: `tf-ds-container="tab-a-1"`.
+    -   If it's a tab and not a link, it should have an attribute that identifies it as a tab (not a link) with a value equal to the ID of the body it should open. Example: `tf-ds-tab-parent="tab-a-1-1"`.
 
-- **Bodies:** The tab body should have:
+-   **Bodies:** The tab body should have:
 
-  - An ID attribute. Example: `id="tab-a-1-1"`.
-  - An attribute with a value equal to the same ID as the body. Example: `tf-ds-tab-body-a="tab-a-1-1"`.
-  - For each container, only one body should have an attribute specifying that it should be open by default. Example: `tf-ds-tab-a-active="true"`.
+    -   An ID attribute. Example: `id="tab-a-1-1"`.
+    -   An attribute with a value equal to the same ID as the body. Example: `tf-ds-tab-body-a="tab-a-1-1"`.
+    -   For each container, only one body should have an attribute specifying that it should be open by default. Example: `tf-ds-tab-a-active="true"`.
 
-- **External Links:** The external links should have:
+-   **External Links:** The external links should have:
 
-  - An attribute with a value equal to the ID of the body it should open. Example: `tf-ds-tab-external-open-a="tab-a-1-1"`.
-  - An attribute specifying the ID of the container that contains the body it is opening. Example: `tf-ds-container="tab-a-1"`.
+    -   An attribute with a value equal to the ID of the body it should open. Example: `tf-ds-tab-external-open-a="tab-a-1-1"`.
+    -   An attribute specifying the ID of the container that contains the body it is opening. Example: `tf-ds-container="tab-a-1"`.
 
-- **Selects:** The select element should have:
-  - An ID attribute. Example: `id="select-01"`.
-  - A class to identify it. Example: `class="js--select-item-a"`.
-  - An attribute with a value equal to the ID of the container it belongs to. Example: `tf-ds-container="tab-a-1"`.
-  - The value of the options should be the ID of the body it should open. Example: `<option value="tab-a-1-1">...</option>`.
+-   **Selects:** The select element should have:
+    -   An ID attribute. Example: `id="select-01"`.
+    -   A class to identify it. Example: `class="js--select-item-a"`.
+    -   An attribute with a value equal to the ID of the container it belongs to. Example: `tf-ds-container="tab-a-1"`.
+    -   The value of the options should be the ID of the body it should open. Example: `<option value="tab-a-1-1">...</option>`.
 
 ```sh
 <div class="b--tabs-a js--tabs-a" id="tab-a-1">
@@ -160,7 +160,7 @@ You can customize the CSS classes and data attributes used by the tabs package t
 
 • `tabActive:` Specifies the active tab.
 
-• `tabActiveClass:` Specifies the CSS class for the active tab content.
+• `tabActiveClass:` Specifies the CSS class for the active tab content. If this attribute is not provided in the HTML, the tab content bodies will be initially hidden, and clicking on a tab will activate the corresponding content.
 
 • `tabBodyActiveClass:` Specifies the CSS class for the active tab link.
 
