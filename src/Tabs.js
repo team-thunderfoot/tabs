@@ -110,15 +110,15 @@ class Tabs {
     selectOnMobile() {
         const selectItems = document.querySelectorAll(`.${this.selectClass}`)
         selectItems.forEach((select) => {
-            const tabBody = document.querySelector(`[${this.tabBody}='${select.value}']`)
-            const parent = document.querySelector(`[${this.tabParent}='${select.value}']`)
-            const containerID = select.getAttribute(this.tabContainer)
-
-            this.JSUTIL.addClass(tabBody, this.tabActiveClass)
-            this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
-
             select.addEventListener("change", () => {
+                const tabBody = document.querySelector(`[${this.tabBody}='${select.value}']`)
+                const parent = document.querySelector(`[${this.tabParent}='${select.value}']`)
+                const containerID = select.getAttribute(this.tabContainer)
+
                 this.hideTab(containerID)
+
+                this.JSUTIL.addClass(tabBody, this.tabActiveClass)
+                this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
             })
         })
     }
