@@ -18,9 +18,6 @@ import { breakpoints } from "@teamthunderfoot/breakpoints";
 
 class Page {
   constructor() {
-    this.tabsA = null;
-    this.tabsB = null;
-
     this.init();
     this.events();
   }
@@ -31,45 +28,31 @@ class Page {
       {}
     );
 
-    document.querySelectorAll(".js--tabs-a").forEach((el) => {
-      this.tabsA = new Tabs({
-        tabContainer: "tf-ds-container",
-        tabActive: "tf-ds-tab-a-active",
-        tabActiveClass: "b--tabs-a__bd__item--is-active",
-        tabBodyActiveClass: "b--tabs-a__hd__list-item__link--is-active",
-        tabTrigger: "tf-ds-tab-to-open-a",
-        tabParent: "tf-ds-tab-parent",
-        tabBody: "tf-ds-tab-body-a",
-        externalTrigger: "tf-ds-tab-external-open-a",
-        selectClass: "js--select-item-a",
-        mediaQuerySelect: bk.tablets, // 810
-        onChange: () => {
-          // do something
-        },
-      });
+    this.tabsA = new Tabs({
+      tabContainer: "tf-ds-container",
+      tabActive: "tf-ds-tab-a-active",
+      tabActiveClass: "c--tabs-a__bd__item--is-active",
+      tabBodyActiveClass: "c--tabs-a__hd__list-item__link--is-active",
+      tabTrigger: "tf-ds-tab-to-open-a",
+      tabParent: "tf-ds-tab-parent",
+      tabBody: "tf-ds-tab-body-a",
+      externalTrigger: "tf-ds-tab-external-open-a",
+      selectClass: "js--select-item-a",
+      mediaQuerySelect: bk.tablets, // 810
+      onChange: () => {
+        // do something
+      },
     });
 
     document
       .querySelector(".js--tabs-destroy")
       .addEventListener("click", (e) => {
         e.preventDefault();
-        this.destroyTabs();
+        this.tabsA.destroy();
       });
   }
 
   events() {
-  }
-
-  destroyTabs() {
-    if (this.tabsA) {
-      this.tabsA.destroy();
-      this.tabsA = null;
-    }
-
-    if (this.tabsB) {
-      this.tabsB.destroy();
-      this.tabsB = null;
-    }
   }
 }
 
@@ -78,6 +61,8 @@ export default Page;
 new Page();
 
 ```
+
+**If you have two or more tab groups, you can see how to instantiate the class [here](https://team-thunderfoot.github.io/tabs/README-a.md).**
 
 In your HTML file, add the necessary elements for the tabs. Each tab group should have a unique identifier (e.g., `tab-a-1` or `tab-a-2`). Use the provided CSS classes and data attributes to specify the tab triggers, tab bodies, and select elements.
 
@@ -109,7 +94,7 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
 #### HTML
 
 ```sh
-<div class="b--tabs-a js--tabs-a" id="tab-a-1">
+<div class="c--tabs-a js--tabs-a" id="tab-a-1">
 
     <div class="c--form-group-a">
         <div class="c--form-select-a">
@@ -120,17 +105,17 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
         </div>
     </div>
 
-    <ul class="b--tabs-a__hd">
-        <li class="b--tabs-a__hd__list-item">
-            <a href="#" class="b--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-1" tf-ds-tab-parent="tab-a-1-1" tf-ds-container="tab-a-1">Item1</a>
+    <ul class="c--tabs-a__hd">
+        <li class="c--tabs-a__hd__list-item">
+            <button class="c--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-1" tf-ds-tab-parent="tab-a-1-1" tf-ds-container="tab-a-1">Item1</button>
         </li>
-        <li class="b--tabs-a__hd__list-item">
-            <a href="#" class="b--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-2"  tf-ds-tab-parent="tab-a-1-2" tf-ds-container="tab-a-1">Item2</a>
+        <li class="c--tabs-a__hd__list-item">
+            <button class="c--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-2"  tf-ds-tab-parent="tab-a-1-2" tf-ds-container="tab-a-1">Item2</button>
         </li>
     </ul>
 
-    <div class="b--tabs-a__bd">
-        <div class="b--tabs-a__bd__item" id="tab-a-1-1" tf-ds-tab-body-a="tab-a-1-1" tf-ds-tab-a-active="true">
+    <div class="c--tabs-a__bd">
+        <div class="c--tabs-a__bd__item" id="tab-a-1-1" tf-ds-tab-body-a="tab-a-1-1" tf-ds-tab-a-active="true">
             <p>Content item 1 item 1 item 1 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum, commodi
             illum nihil maxime quaerat eos sequi error natus neque, debitis ducimus veniam minus animi iure
             suscipit at acc <a href='#' tf-ds-tab-to-open-a="tab-a-1-2" tf-ds-container="tab-a-1">TAB 2</a> usamus, laborum fuga! Lorem ipsum dolor
@@ -138,7 +123,7 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
             possimus qui itaque doloremque laudantium, veniam error ab perspiciatis tempora labore aperiam ratione
             eum non ipsum.</p>
         </div>
-        <div class="b--tabs-a__bd__item" id="tab-a-1-2" tf-ds-tab-body-a="tab-a-1-2">
+        <div class="c--tabs-a__bd__item" id="tab-a-1-2" tf-ds-tab-body-a="tab-a-1-2">
             <p>Content item 2 item 2 item 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum, commodi
             illum nihil maxime quaerat eos sequi error natus neque, debitis ducimus veniam minus animi iure
             suscipit at accusamus, laborum fuga! Lorem ipsum dolor
@@ -217,11 +202,6 @@ TABS
 .c--tabs-a__bd__item--is-active {
     max-height: 99rem;
     opacity: 1;
-}
-
-.c--tabs-b {
-    border: 1px solid red;
-    /* empty for now */
 }
 
 
