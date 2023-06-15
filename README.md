@@ -176,6 +176,7 @@ TABS
     transition: all 0.3s ease-in-out;
     position: relative;
     padding: 0.45455rem 0.5rem;
+    appearance: none;
 }
 
 /* hover foucs and active state */
