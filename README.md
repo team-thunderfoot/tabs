@@ -62,7 +62,7 @@ new Page();
 
 ```
 
-**If you have two or more tab groups, you can see how to instantiate the class [here](https://team-thunderfoot.github.io/tabs/dist/README-a.md).**
+**If you have two or more tab groups, you can see how to instantiate the class [here](https://team-thunderfoot.github.io/tabs/README_tabs.md).**
 
 In your HTML file, add the necessary elements for the tabs. Each tab group should have a unique identifier (e.g., `tab-a-1` or `tab-a-2`). Use the provided CSS classes and data attributes to specify the tab triggers, tab bodies, and select elements.
 
