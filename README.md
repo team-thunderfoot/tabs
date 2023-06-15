@@ -106,6 +106,8 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
     -   An attribute with a value equal to the ID of the container it belongs to. Example: `tf-ds-container="tab-a-1"`.
     -   The value of the options should be the ID of the body it should open. Example: `<option value="tab-a-1-1">...</option>`.
 
+#### HTML
+
 ```sh
 <div class="b--tabs-a js--tabs-a" id="tab-a-1">
 
@@ -148,6 +150,117 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
 </div>
 
 <p>Open Item 2 on tab 1 by clicking <a href="#" tf-ds-tab-external-open-b="tab-a-1-2" tf-ds-container="tab-a-1">here</a></p>
+```
+
+#### CSS Styles
+
+```sh
+TABS
+
+
+/* Start Header Style */
+.c--tabs-a__hd {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+@media all and (max-width: 810px) {
+    .c--tabs-a__hd {
+        display: none;
+    }
+}
+
+.c--tabs-a__hd__list-item {
+    display: inline-block;
+}
+
+.c--tabs-a__hd__list-item__link {
+    font-family: Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.35;
+    letter-spacing: 0.26px;
+    font-size: 1rem;
+    text-decoration: none !important;
+    text-underline-position: auto;
+    display: inline-block;
+    background: #a6a6a6;
+    color: #ffffff;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    padding: 0.45455rem 0.5rem;
+}
+
+/* hover foucs and active state */
+.c--tabs-a__hd__list-item__link:hover,
+.c--tabs-a__hd__list-item__link:focus,
+.c--tabs-a__hd__list-item__link--is-active {
+    background: #3ca8b0;
+    color: #ffffff;
+}
+
+/* End Header Style */
+
+/* Start Body Style*/
+.c--tabs-a__bd {
+    padding-top: 16px;
+}
+
+.c--tabs-a__bd__item {
+    /* this should not be changed if possible*/
+    overflow: hidden;
+    max-height: 0;
+}
+
+.c--tabs-a__bd__item--is-active {
+    max-height: 99rem;
+    opacity: 1;
+}
+
+.c--tabs-b {
+    border: 1px solid red;
+    /* empty for now */
+}
+
+
+SELECTOR
+
+
+.c--form-group-a {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.c--form-select-a {
+    position: relative;
+    width: 100%;
+    display: none;
+}
+
+.c--form-select-a__item {
+    font-size: 16px;
+    color: rgba(#4d49f3, 0.5);
+    display: block;
+    padding: 8px 24px;
+    border: 1px solid #4d49f3;
+    border-radius: 90px;
+    background: #fff;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.c--form-select-a__item:valid {
+    color: #4d49f3;
+}
+
+@media all and (max-width: 810px) {
+    .c--form-select-a {
+        display: block;
+    }
+}
 ```
 
 ## Customization
