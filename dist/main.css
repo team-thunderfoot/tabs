@@ -67,6 +67,7 @@
     position: relative;
     padding: 0.45455rem 0.5rem;
     border: none;
+    appearance: none;
 }
 
 /* hover foucs and active state */
