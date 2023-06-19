@@ -130,15 +130,11 @@ class Tabs {
         select.value = value
     }
 
-    test() {
-        console.log("muereeee")
-    }
     // Clears the click event and removes all added classes
     destroy() {
         const triggers = document.querySelectorAll(`[${this.tabTrigger}]`)
         triggers.forEach((trigger) => {
             trigger.className = ""
-            // trigger.removeEventListener("click", this.test)
 
             let elClone = trigger.cloneNode(true)
             trigger.parentNode.replaceChild(elClone, trigger)
@@ -151,7 +147,6 @@ class Tabs {
 
         const externalTriggers = document.querySelectorAll(`[${this.externalTrigger}]`)
         externalTriggers.forEach((externalTrigger) => {
-            // externalTrigger.removeEventListener("click", this.test)
             let elClone = externalTrigger.cloneNode(true)
             externalTrigger.parentNode.replaceChild(elClone, externalTrigger)
         })
