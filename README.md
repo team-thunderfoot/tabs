@@ -28,8 +28,9 @@ class Page {
       {}
     );
 
+    const tabContainer = document.querySelector(".js--tabs-a")
     this.tabsA = new Tabs({
-      tabContainer: "tf-ds-container",
+      tabContainer: tabContainer,
       tabActive: "tf-ds-tab-a-active",
       tabActiveClass: "c--tabs-a__bd__item--is-active",
       tabBodyActiveClass: "c--tabs-a__hd__list-item__link--is-active",
@@ -57,12 +58,11 @@ new Page();
 
 In your HTML file, add the necessary elements for the tabs. Each tab group should have a unique identifier (e.g., `tab-a-1` or `tab-a-2`). Use the provided CSS classes and data attributes to specify the tab triggers, tab bodies, and select elements.
 
--   **Container:** The tab container element should have an ID attribute. Example: `id="tab-a-1"`.
+-   **Container:** The tab container element should have a class. Example: `class="js--tabs-a"`.
 
 -   **Triggers:** The tab triggers should have the following attributes:
 
     -   An attribute with a value equal to the ID of the tab body it should open. Example: `tf-ds-tab-to-open-a="tab-a-1-1"`.
-    -   An attribute that specifies which container it belongs to. Example: `tf-ds-container="tab-a-1"`.
     -   If it's a tab and not a link, it should have an attribute that identifies it as a tab (not a link) with a value equal to the ID of the body it should open. Example: `tf-ds-tab-parent="tab-a-1-1"`.
 
 -   **Bodies:** The tab body should have:
@@ -74,12 +74,10 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
 -   **External Links:** The external links should have:
 
     -   An attribute with a value equal to the ID of the body it should open. Example: `tf-ds-tab-external-open-a="tab-a-1-1"`.
-    -   An attribute specifying the ID of the container that contains the body it is opening. Example: `tf-ds-container="tab-a-1"`.
 
 -   **Selects:** The select element should have:
     -   An ID attribute. Example: `id="select-01"`.
     -   A class to identify it. Example: `class="js--select-item-a"`.
-    -   An attribute with a value equal to the ID of the container it belongs to. Example: `tf-ds-container="tab-a-1"`.
     -   The value of the options should be the ID of the body it should open. Example: `<option value="tab-a-1-1">...</option>`.
 
 #### HTML
@@ -89,7 +87,7 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
 
     <div class="c--form-group-a">
         <div class="c--form-select-a">
-            <select id="select-01" class="c--form-select-a__item js--select-item-a" tf-ds-container="tab-a-1">
+            <select id="select-01" class="c--form-select-a__item js--select-item-a">
                 <option value="tab-a-1-1">Item1</option>
                 <option value="tab-a-1-2">Item2</option>
             </select>
@@ -98,10 +96,10 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
 
     <ul class="c--tabs-a__hd">
         <li class="c--tabs-a__hd__list-item">
-            <button class="c--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-1" tf-ds-tab-parent="tab-a-1-1" tf-ds-container="tab-a-1">Item1</button>
+            <button class="c--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-1" tf-ds-tab-parent="tab-a-1-1">Item1</button>
         </li>
         <li class="c--tabs-a__hd__list-item">
-            <button class="c--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-2"  tf-ds-tab-parent="tab-a-1-2" tf-ds-container="tab-a-1">Item2</button>
+            <button class="c--tabs-a__hd__list-item__link" tf-ds-tab-to-open-a="tab-a-1-2"  tf-ds-tab-parent="tab-a-1-2">Item2</button>
         </li>
     </ul>
 
@@ -109,7 +107,7 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
         <div class="c--tabs-a__bd__item" id="tab-a-1-1" tf-ds-tab-body-a="tab-a-1-1" tf-ds-tab-a-active="true">
             <p>Content item 1 item 1 item 1 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum, commodi
             illum nihil maxime quaerat eos sequi error natus neque, debitis ducimus veniam minus animi iure
-            suscipit at acc <a href='#' tf-ds-tab-to-open-a="tab-a-1-2" tf-ds-container="tab-a-1">TAB 2</a> usamus, laborum fuga! Lorem ipsum dolor
+            suscipit at acc <a href='#' tf-ds-tab-to-open-a="tab-a-1-2">TAB 2</a> usamus, laborum fuga! Lorem ipsum dolor
             sit amet consectetur adipisicing elit. Debitis blanditiis, eveniet consequatur omnis voluptatum,
             possimus qui itaque doloremque laudantium, veniam error ab perspiciatis tempora labore aperiam ratione
             eum non ipsum.</p>
@@ -125,7 +123,7 @@ In your HTML file, add the necessary elements for the tabs. Each tab group shoul
     </div>
 </div>
 
-<p>Open Item 2 on tab 1 by clicking <a href="#" tf-ds-tab-external-open-b="tab-a-1-2" tf-ds-container="tab-a-1">here</a></p>
+<p>Open Item 2 on tab 1 by clicking <a href="#" tf-ds-tab-external-open-b="tab-a-1-2">here</a></p>
 ```
 
 #### CSS Styles
@@ -241,7 +239,7 @@ You can customize the CSS classes and data attributes used by the tabs package t
 
 ## Options
 
-• `tabContainer:` Specifies the ID selector for the main container of the tabs.
+• `tabContainer:` Specifies the class selector for the main container of the tabs.
 
 • `tabActive:` Specifies the active tab.
 
@@ -295,9 +293,9 @@ class Page {
       {}
     );
 
-    document.querySelectorAll(".js--tabs-a").forEach((el) => {
+    document.querySelectorAll(".js--tabs-a").forEach((tabContainer) => {
       this.tabsA = new Tabs({
-        tabContainer: "tf-ds-container",
+        tabContainer: tabContainer,
         tabActive: "tf-ds-tab-a-active",
         tabActiveClass: "b--tabs-a__bd__item--is-active",
         tabBodyActiveClass: "b--tabs-a__hd__list-item__link--is-active",
