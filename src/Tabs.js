@@ -31,13 +31,12 @@ class Tabs {
     // Sets up click event for tab toggling
     toggleTabs = () => {
         // Toggles the tabs when clicked
-        const triggers = document.querySelectorAll(`[${this.tabTrigger}]`)
+        const triggers = this.tabContainer.querySelectorAll(`[${this.tabTrigger}]`)
         triggers.forEach((trigger) => {
             const tabID = trigger.getAttribute(this.tabTrigger)
-            const containerID = trigger.getAttribute(this.tabContainer)
 
             trigger.addEventListener("click", (item) => {
-                this.handleClick(item, tabID, containerID)
+                this.handleClick(item, tabID)
             })
         })
 
@@ -45,10 +44,9 @@ class Tabs {
         const externalTriggers = document.querySelectorAll(`[${this.externalTrigger}]`)
         externalTriggers.forEach((externalTrigger) => {
             const tabID = externalTrigger.getAttribute(this.externalTrigger)
-            const containerID = externalTrigger.getAttribute(this.tabContainer)
 
             externalTrigger.addEventListener("click", (item) => {
-                this.handleClick(item, tabID, containerID)
+                this.handleClick(item, tabID)
             })
         })
 
@@ -71,21 +69,21 @@ class Tabs {
     // Sets the default active tab
     setDefaultActiveTab() {
         // Shows tab with tabActive class
-        const bodies = document.querySelectorAll(`[${this.tabActive}]`)
-        bodies.forEach((body) => {
-            this.JSUTIL.addClass(body, this.tabActiveClass)
-            this.JSUTIL.addClass(document.querySelector(`[${this.tabTrigger}="${body.id}"]`), this.tabBodyActiveClass)
-        })
+        const body = this.tabContainer.querySelector(`[${this.tabActive}]`)
+        this.JSUTIL.addClass(body, this.tabActiveClass)
+        this.JSUTIL.addClass(this.tabContainer.querySelector(`[${this.tabTrigger}="${body.id}"]`), this.tabBodyActiveClass)
+
+        this.chageSelectValue(body.id)
     }
 
-    handleClick(item, tabID, containerID) {
+    handleClick(item, tabID) {
         item.preventDefault()
         // Hides all active classes
-        this.hideTab(containerID)
-        this.chageSelectValue(containerID, tabID)
+        this.hideTab()
+        this.chageSelectValue(tabID)
 
-        const tabBody = document.getElementById(tabID)
-        const parent = document.querySelector(`[${this.tabParent}='${tabID}']`)
+        const tabBody = this.tabContainer.querySelector(`#${tabID}`)
+        const parent = this.tabContainer.querySelector(`[${this.tabParent}='${tabID}']`)
 
         if (tabBody && parent) {
             this.JSUTIL.addClass(tabBody, this.tabActiveClass)
@@ -94,28 +92,26 @@ class Tabs {
     }
 
     // Hides all active clases
-    hideTab(containerID) {
-        const container = document.getElementById(containerID)
+    hideTab() {
         // removes class to body
-        container.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
+        this.tabContainer.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabActiveClass)
         })
         // removes class to trigger
-        container.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
+        this.tabContainer.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabBodyActiveClass)
         })
     }
 
     // Changes tabs on mobile when select option is changed
     selectOnMobile() {
-        const selectItems = document.querySelectorAll(`.${this.selectClass}`)
+        const selectItems = this.tabContainer.querySelectorAll(`.${this.selectClass}`)
         selectItems.forEach((select) => {
             select.addEventListener("change", () => {
-                const tabBody = document.querySelector(`[${this.tabBody}='${select.value}']`)
+                const tabBody = this.tabContainer.querySelector(`[${this.tabBody}='${select.value}']`)
                 const parent = document.querySelector(`[${this.tabParent}='${select.value}']`)
-                const containerID = select.getAttribute(this.tabContainer)
 
-                this.hideTab(containerID)
+                this.hideTab()
 
                 this.JSUTIL.addClass(tabBody, this.tabActiveClass)
                 this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
@@ -124,9 +120,8 @@ class Tabs {
     }
 
     // Changes the value of the select element
-    chageSelectValue(containerID, value) {
-        const container = document.getElementById(containerID)
-        const select = container.querySelector("select")
+    chageSelectValue(value) {
+        const select = this.tabContainer.querySelector("select")
         select.value = value
     }
 

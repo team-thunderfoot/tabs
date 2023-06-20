@@ -13,9 +13,9 @@ class Page {
     init() {
         const bk = breakpoints.reduce((target, inner) => Object.assign(target, inner), {})
 
-        document.querySelectorAll(".js--tabs-a").forEach((el) => {
+        document.querySelectorAll(".js--tabs-a").forEach((tabContainer) => {
             this.tabsA = new Tabs({
-                tabContainer: "tf-ds-container",
+                tabContainer: tabContainer,
                 tabActive: "tf-ds-tab-a-active",
                 tabActiveClass: "c--tabs-a__bd__item--is-active",
                 tabBodyActiveClass: "c--tabs-a__hd__list-item__link--is-active",
@@ -31,9 +31,9 @@ class Page {
             })
         })
 
-        document.querySelectorAll(".js--tabs-b").forEach((el) => {
+        document.querySelectorAll(".js--tabs-b").forEach((tabContainer) => {
             this.tabsB = new Tabs({
-                tabContainer: "tf-ds-container",
+                tabContainer: tabContainer,
                 tabActive: "tf-ds-tab-b-active",
                 tabActiveClass: "c--tabs-b__bd__item--is-active",
                 tabBodyActiveClass: "c--tabs-b__hd__list-item__link--is-active",
