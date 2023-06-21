@@ -44,10 +44,13 @@ class Tabs {
         const externalTriggers = document.querySelectorAll(`[${this.externalTrigger}]`)
         externalTriggers.forEach((externalTrigger) => {
             const tabID = externalTrigger.getAttribute(this.externalTrigger)
+            const tabToOpen = this.tabContainer.querySelector(`#${tabID}`)
 
-            externalTrigger.addEventListener("click", (item) => {
-                this.handleClick(item, tabID)
-            })
+            if (tabToOpen) {
+                externalTrigger.addEventListener("click", (item) => {
+                    this.handleClick(item, tabID)
+                })
+            }
         })
 
         if (this.onChange) this.onChange()
