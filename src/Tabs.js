@@ -8,7 +8,6 @@ class Tabs {
         this.tabActiveClass = payload.tabActiveClass
         this.tabBodyActiveClass = payload.tabBodyActiveClass
         this.tabTrigger = payload.tabTrigger
-        this.tabParent = payload.tabParent
         this.tabBody = payload.tabBody
         this.externalTrigger = payload.externalTrigger
         this.selectClass = payload.selectClass
@@ -74,7 +73,10 @@ class Tabs {
         // Shows tab with tabActive class
         const body = this.tabContainer.querySelector(`[${this.tabActive}]`)
         this.JSUTIL.addClass(body, this.tabActiveClass)
-        this.JSUTIL.addClass(this.tabContainer.querySelector(`[${this.tabTrigger}="${body.id}"]`), this.tabBodyActiveClass)
+        this.JSUTIL.addClass(
+            this.tabContainer.querySelector(`[${this.tabTrigger}="${body.id}"]`),
+            this.tabBodyActiveClass
+        )
 
         this.chageSelectValue(body.id)
     }
@@ -86,7 +88,7 @@ class Tabs {
         this.chageSelectValue(tabID)
 
         const tabBody = this.tabContainer.querySelector(`#${tabID}`)
-        const parent = this.tabContainer.querySelector(`[${this.tabParent}='${tabID}']`)
+        const parent = this.tabContainer.querySelector(`[${this.tabTrigger}='${tabID}']`)
 
         if (tabBody && parent) {
             this.JSUTIL.addClass(tabBody, this.tabActiveClass)
@@ -111,8 +113,10 @@ class Tabs {
         const selectItems = this.tabContainer.querySelectorAll(`.${this.selectClass}`)
         selectItems.forEach((select) => {
             select.addEventListener("change", () => {
-                const tabBody = this.tabContainer.querySelector(`[${this.tabBody}='${select.value}']`)
-                const parent = document.querySelector(`[${this.tabParent}='${select.value}']`)
+                const tabBody = this.tabContainer.querySelector(
+                    `[${this.tabBody}='${select.value}']`
+                )
+                const parent = document.querySelector(`[${this.tabTrigger}='${select.value}']`)
 
                 this.hideTab()
 
