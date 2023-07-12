@@ -28,9 +28,9 @@ class Page {
       {}
     );
 
-    const tabContainer = document.querySelector(".js--tabs-a")
+    const element = document.querySelector(".js--tabs-a")
     this.tabsA = new Tabs({
-      tabContainer: tabContainer,
+      element: element,
       tabActive: "tf-ds-tab-a-active",
       tabActiveClass: "c--tabs-a__bd__item--is-active",
       tabBodyActiveClass: "c--tabs-a__hd__list-item__link--is-active",
@@ -58,7 +58,7 @@ new Page();
 
 In your HTML file, add the necessary elements for the tabs. Each tab group should have a unique identifier (e.g., `tab-a-1` or `tab-a-2`). Use the provided CSS classes and data attributes to specify the tab triggers, tab bodies, and select elements.
 
--   **Container:** The tab container element should have a class. Example: `class="js--tabs-a"`.
+-   **Element:** The tab container element should have a class. Example: `class="js--tabs-a"`.
 
 -   **Triggers:** The tab triggers should have the following attributes:
 
@@ -239,7 +239,7 @@ You can customize the CSS classes and data attributes used by the tabs package t
 
 ## Options
 
-• `tabContainer:` Specifies the class selector for the main container of the tabs.
+• `element:` Specifies the class selector for the main container of the tabs.
 
 • `tabActive:` Specifies the active tab.
 
@@ -293,9 +293,9 @@ class Page {
       {}
     );
 
-    document.querySelectorAll(".js--tabs-a").forEach((tabContainer) => {
+    document.querySelectorAll(".js--tabs-a").forEach((element) => {
       this.tabsA = new Tabs({
-        tabContainer: tabContainer,
+        element: element,
         tabActive: "tf-ds-tab-a-active",
         tabActiveClass: "b--tabs-a__bd__item--is-active",
         tabBodyActiveClass: "b--tabs-a__hd__list-item__link--is-active",

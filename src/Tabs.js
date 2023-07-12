@@ -3,7 +3,7 @@ import { tf_debounce } from "@andresclua/debounce-throttle"
 
 class Tabs {
     constructor(payload) {
-        this.tabContainer = payload.tabContainer
+        this.element = payload.element
         this.tabActive = payload.tabActive
         this.tabActiveClass = payload.tabActiveClass
         this.tabBodyActiveClass = payload.tabBodyActiveClass
@@ -30,7 +30,7 @@ class Tabs {
     // Sets up click event for tab toggling
     toggleTabs = () => {
         // Toggles the tabs when clicked
-        const triggers = this.tabContainer.querySelectorAll(`[${this.tabTrigger}]`)
+        const triggers = this.element.querySelectorAll(`[${this.tabTrigger}]`)
         triggers.forEach((trigger) => {
             const tabID = trigger.getAttribute(this.tabTrigger)
 
@@ -43,7 +43,7 @@ class Tabs {
         const externalTriggers = document.querySelectorAll(`[${this.externalTrigger}]`)
         externalTriggers.forEach((externalTrigger) => {
             const tabID = externalTrigger.getAttribute(this.externalTrigger)
-            const tabToOpen = this.tabContainer.querySelector(`#${tabID}`)
+            const tabToOpen = this.element.querySelector(`#${tabID}`)
 
             if (tabToOpen) {
                 externalTrigger.addEventListener("click", (item) => {
@@ -71,10 +71,10 @@ class Tabs {
     // Sets the default active tab
     setDefaultActiveTab() {
         // Shows tab with tabActive class
-        const body = this.tabContainer.querySelector(`[${this.tabActive}]`)
+        const body = this.element.querySelector(`[${this.tabActive}]`)
         this.JSUTIL.addClass(body, this.tabActiveClass)
         this.JSUTIL.addClass(
-            this.tabContainer.querySelector(`[${this.tabTrigger}="${body.id}"]`),
+            this.element.querySelector(`[${this.tabTrigger}="${body.id}"]`),
             this.tabBodyActiveClass
         )
 
@@ -87,8 +87,8 @@ class Tabs {
         this.hideTab()
         this.chageSelectValue(tabID)
 
-        const tabBody = this.tabContainer.querySelector(`#${tabID}`)
-        const parent = this.tabContainer.querySelector(`[${this.tabTrigger}='${tabID}']`)
+        const tabBody = this.element.querySelector(`#${tabID}`)
+        const parent = this.element.querySelector(`[${this.tabTrigger}='${tabID}']`)
 
         if (tabBody && parent) {
             this.JSUTIL.addClass(tabBody, this.tabActiveClass)
@@ -99,23 +99,21 @@ class Tabs {
     // Hides all active clases
     hideTab() {
         // removes class to body
-        this.tabContainer.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
+        this.element.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabActiveClass)
         })
         // removes class to trigger
-        this.tabContainer.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
+        this.element.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabBodyActiveClass)
         })
     }
 
     // Changes tabs on mobile when select option is changed
     selectOnMobile() {
-        const selectItems = this.tabContainer.querySelectorAll(`.${this.selectClass}`)
+        const selectItems = this.element.querySelectorAll(`.${this.selectClass}`)
         selectItems.forEach((select) => {
             select.addEventListener("change", () => {
-                const tabBody = this.tabContainer.querySelector(
-                    `[${this.tabBody}='${select.value}']`
-                )
+                const tabBody = this.element.querySelector(`[${this.tabBody}='${select.value}']`)
                 const parent = document.querySelector(`[${this.tabTrigger}='${select.value}']`)
 
                 this.hideTab()
@@ -128,7 +126,7 @@ class Tabs {
 
     // Changes the value of the select element
     chageSelectValue(value) {
-        const select = this.tabContainer.querySelector("select")
+        const select = this.element.querySelector("select")
         select.value = value
     }
 
