@@ -94,17 +94,16 @@ class Tabs {
         const tabBody = this.DOM.element.querySelector(`#${tabID}`)
         const parent = this.DOM.element.querySelector(`[${this.tabTrigger}='${tabID}']`)
 
-        if (this.onShow) this.onShow
-
         if (tabBody && parent) {
             this.JSUTIL.addClass(tabBody, this.tabActiveClass)
             this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
         }
+
+        if (this.onShow) this.onShow
     }
 
     // Hides all active clases
     hideTab() {
-        if (this.onHIde) this.onHIde
         // removes class to body
         this.DOM.element.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabActiveClass)
@@ -113,12 +112,12 @@ class Tabs {
         this.DOM.element.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabBodyActiveClass)
         })
+
+        if (this.onHIde) this.onHIde
     }
 
     // Changes tabs on mobile when select option is changed
     selectOnMobile() {
-        if (this.onHIde) this.onHIde
-
         const selectItems = this.DOM.element.querySelectorAll(`.${this.selectClass}`)
         selectItems.forEach((select) => {
             select.addEventListener("change", () => {
@@ -133,6 +132,8 @@ class Tabs {
                 this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
             })
         })
+
+        if (this.onHIde) this.onHIde
     }
 
     // Changes the value of the select element
