@@ -73,7 +73,6 @@ class Tabs {
     // Sets the default active tab
     setDefaultActiveTab() {
         // Shows tab with tabActive class
-        if (this.onShow) this.onShow
 
         const body = this.DOM.element.querySelector(`[${this.tabActive}]`)
         this.JSUTIL.addClass(body, this.tabActiveClass)
@@ -99,7 +98,7 @@ class Tabs {
             this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
         }
 
-        if (this.onShow) this.onShow
+        if (this.onShow) this.onShow()
     }
 
     // Hides all active clases
@@ -113,7 +112,7 @@ class Tabs {
             this.JSUTIL.removeClass(el, this.tabBodyActiveClass)
         })
 
-        if (this.onHIde) this.onHIde
+        if (this.onHide) this.onHide()
     }
 
     // Changes tabs on mobile when select option is changed
@@ -133,7 +132,7 @@ class Tabs {
             })
         })
 
-        if (this.onHIde) this.onHIde
+        if (this.onHide) this.onHide()
     }
 
     // Changes the value of the select element
