@@ -40,8 +40,11 @@ class Page {
       externalTrigger: "tf-ds-tab-external-open-a",
       selectClass: "js--select-item-a",
       mediaQuerySelect: bk.tablets, // 810
-      onChange: () => {
-        // do something
+      onHide: () => {
+          // do something
+      },
+      onShow: () => {
+          // do something
       },
     });
   }
@@ -305,8 +308,11 @@ class Page {
         externalTrigger: "tf-ds-tab-external-open-a",
         selectClass: "js--select-item-a",
         mediaQuerySelect: bk.tablets, // 810
-        onChange: () => {
-          // do something
+        onHide: () => {
+            // do something
+        },
+        onShow: () => {
+            // do something
         },
       });
     });

@@ -3,7 +3,10 @@ import { tf_debounce } from "@andresclua/debounce-throttle"
 
 class Tabs {
     constructor(payload) {
-        this.element = payload.element
+        this.DOM = {
+            element: payload.element,
+        }
+
         this.tabActive = payload.tabActive
         this.tabActiveClass = payload.tabActiveClass
         this.tabBodyActiveClass = payload.tabBodyActiveClass
@@ -12,7 +15,8 @@ class Tabs {
         this.externalTrigger = payload.externalTrigger
         this.selectClass = payload.selectClass
         this.mediaQuerySelect = payload.mediaQuerySelect
-        this.onChange = payload.onChange
+        this.onHIde = payload.onHIde
+        this.onShow = payload.onShow
 
         this.JSUTIL = new JSUTIL()
         this.init()
@@ -30,7 +34,7 @@ class Tabs {
     // Sets up click event for tab toggling
     toggleTabs = () => {
         // Toggles the tabs when clicked
-        const triggers = this.element.querySelectorAll(`[${this.tabTrigger}]`)
+        const triggers = this.DOM.element.querySelectorAll(`[${this.tabTrigger}]`)
         triggers.forEach((trigger) => {
             const tabID = trigger.getAttribute(this.tabTrigger)
 
@@ -43,7 +47,7 @@ class Tabs {
         const externalTriggers = document.querySelectorAll(`[${this.externalTrigger}]`)
         externalTriggers.forEach((externalTrigger) => {
             const tabID = externalTrigger.getAttribute(this.externalTrigger)
-            const tabToOpen = this.element.querySelector(`#${tabID}`)
+            const tabToOpen = this.DOM.element.querySelector(`#${tabID}`)
 
             if (tabToOpen) {
                 externalTrigger.addEventListener("click", (item) => {
@@ -51,8 +55,6 @@ class Tabs {
                 })
             }
         })
-
-        if (this.onChange) this.onChange()
 
         if (window.innerWidth < this.mediaQuerySelect) {
             this.selectOnMobile()
@@ -71,10 +73,12 @@ class Tabs {
     // Sets the default active tab
     setDefaultActiveTab() {
         // Shows tab with tabActive class
-        const body = this.element.querySelector(`[${this.tabActive}]`)
+        if (this.onShow) this.onShow
+
+        const body = this.DOM.element.querySelector(`[${this.tabActive}]`)
         this.JSUTIL.addClass(body, this.tabActiveClass)
         this.JSUTIL.addClass(
-            this.element.querySelector(`[${this.tabTrigger}="${body.id}"]`),
+            this.DOM.element.querySelector(`[${this.tabTrigger}="${body.id}"]`),
             this.tabBodyActiveClass
         )
 
@@ -87,8 +91,10 @@ class Tabs {
         this.hideTab()
         this.chageSelectValue(tabID)
 
-        const tabBody = this.element.querySelector(`#${tabID}`)
-        const parent = this.element.querySelector(`[${this.tabTrigger}='${tabID}']`)
+        const tabBody = this.DOM.element.querySelector(`#${tabID}`)
+        const parent = this.DOM.element.querySelector(`[${this.tabTrigger}='${tabID}']`)
+
+        if (this.onShow) this.onShow
 
         if (tabBody && parent) {
             this.JSUTIL.addClass(tabBody, this.tabActiveClass)
@@ -98,22 +104,27 @@ class Tabs {
 
     // Hides all active clases
     hideTab() {
+        if (this.onHIde) this.onHIde
         // removes class to body
-        this.element.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
+        this.DOM.element.querySelectorAll(`[${this.tabBody}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabActiveClass)
         })
         // removes class to trigger
-        this.element.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
+        this.DOM.element.querySelectorAll(`[${this.tabTrigger}]`).forEach((el) => {
             this.JSUTIL.removeClass(el, this.tabBodyActiveClass)
         })
     }
 
     // Changes tabs on mobile when select option is changed
     selectOnMobile() {
-        const selectItems = this.element.querySelectorAll(`.${this.selectClass}`)
+        if (this.onHIde) this.onHIde
+
+        const selectItems = this.DOM.element.querySelectorAll(`.${this.selectClass}`)
         selectItems.forEach((select) => {
             select.addEventListener("change", () => {
-                const tabBody = this.element.querySelector(`[${this.tabBody}='${select.value}']`)
+                const tabBody = this.DOM.element.querySelector(
+                    `[${this.tabBody}='${select.value}']`
+                )
                 const parent = document.querySelector(`[${this.tabTrigger}='${select.value}']`)
 
                 this.hideTab()
@@ -126,7 +137,7 @@ class Tabs {
 
     // Changes the value of the select element
     chageSelectValue(value) {
-        const select = this.element.querySelector("select")
+        const select = this.DOM.element.querySelector("select")
         select.value = value
     }
 
