@@ -56,7 +56,7 @@ class Tabs {
             }
         })
 
-        if (window.innerWidth < this.mediaQuerySelect) {
+        if (this.mediaQuerySelect && window.innerWidth < this.mediaQuerySelect) {
             this.selectOnMobile()
         }
 
@@ -118,27 +118,34 @@ class Tabs {
     // Changes tabs on mobile when select option is changed
     selectOnMobile() {
         const selectItems = this.DOM.element.querySelectorAll(`.${this.selectClass}`)
-        selectItems.forEach((select) => {
-            select.addEventListener("change", () => {
-                const tabBody = this.DOM.element.querySelector(
-                    `[${this.tabBody}='${select.value}']`
-                )
-                const parent = document.querySelector(`[${this.tabTrigger}='${select.value}']`)
-
-                this.hideTab()
-
-                this.JSUTIL.addClass(tabBody, this.tabActiveClass)
-                this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
+        if(selectItems && this.mediaQuerySelect){
+            selectItems.forEach((select) => {
+                select.addEventListener("change", () => {
+                    const tabBody = this.DOM.element.querySelector(
+                        `[${this.tabBody}='${select.value}']`
+                    )
+                    const parent = document.querySelector(`[${this.tabTrigger}='${select.value}']`)
+    
+                    this.hideTab()
+    
+                    this.JSUTIL.addClass(tabBody, this.tabActiveClass)
+                    this.JSUTIL.addClass(parent, this.tabBodyActiveClass)
+                })
             })
-        })
+        }
+        
 
         if (this.onHide) this.onHide()
     }
 
     // Changes the value of the select element
     chageSelectValue(value) {
-        const select = this.DOM.element.querySelector("select")
-        select.value = value
+        const selectItems = this.DOM.element.querySelectorAll(`.${this.selectClass}`)
+        if(selectItems && this.mediaQuerySelect && selectItems.length > 0){
+            const select = this.DOM.element.querySelector("select")
+            select.value = value
+        }
+        
     }
 
     // Clears the click event and removes all added classes

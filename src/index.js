@@ -23,7 +23,7 @@ class Page {
                 tabBody: "tf-ds-tab-body-a",
                 externalTrigger: "tf-ds-tab-external-open-a",
                 selectClass: "js--select-item-a",
-                mediaQuerySelect: bk.tablets, // 810
+                mediaQuerySelect:  bk.tabletm,// 810
                 onHide: () => {
                     // do something
                 },
